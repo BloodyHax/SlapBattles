@@ -1,0 +1,454 @@
+local plr = game:GetService("Players").LocalPlayer
+local char = plr.Character
+local myPart = Instance.new("Part")
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("SlapBattles | BloodyHub", "BloodTheme")
+
+local Combat = Window:NewTab("Combat")
+local Combat1 = Combat:NewSection("Combat General")
+
+local Utility = Window:NewTab("Utility")
+local Utility1 = Utility:NewSection("Utility General")
+
+local Abilitys = Window:NewTab("Abilitys")
+local AbilitysT = Abilitys:NewSection("Toggles")
+local AbilitysB = Abilitys:NewSection("Buttons")
+
+Combat1:NewButton("Reach", "T H I C K", function()
+local plr = game.Players.LocalPlayer
+function supaSiza(v)
+if v:IsA("Tool") then
+v.Glove.Transparency = 0.75
+v.Glove.Size = Vector3.new(25, 25, 25)
+end
+end
+plr.Character.ChildAdded:Connect(supaSiza)
+plr.CharacterAdded:Connect(function(char)
+char.ChildAdded:Connect(supaSiza)
+end)
+end)
+
+Combat1:NewButton("AntiRagdoll", "dont fly", function()
+deb = false
+plr = game.Players.LocalPlayer
+if deb == false then
+while true do
+plr.Character.Torso:WaitForChild("Ragdollballsocket")
+plr.Character.Torso.Anchored = true
+deb = true
+wait(1)
+deb = false
+plr.Character.Torso.Anchored = false
+task.wait()
+end
+end
+end)
+
+Combat1:NewButton("Slap Aura [BROKEN]", "protect", function()
+function isSpawned(player)
+if workspace:FindFirstChild(player.Name) and player.Character:FindFirstChild("HumanoidRootPart") then
+return true
+else
+return false
+end
+end
+
+while wait() do
+for i, v in pairs(game.Players:GetPlayers()) do
+if isSpawned(v) and v ~= game.Players.LocalPlayer and not v.Character.Head:FindFirstChild("UnoReverseCard") then
+if (v.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 50 then
+game:GetService("ReplicatedStorage").b:FireServer(v.Character["Right Arm"])
+wait(0.1)
+end
+end
+end
+end
+end)
+
+AbilitysT:NewToggle("Charge Kinetic", "careful with dead barrier", function(state)
+if state then
+_G.kineticharge = true
+
+while _G.kineticharge == true do
+local args = {
+[1] = {
+["Force"] = 0,
+["Direction"] = Vector3.new(1, 1.5, 0)
+}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("SelfKnockback"):FireServer(unpack(args))
+wait()
+end
+else
+_G.kineticharge = false
+
+while _G.kineticharge == true do
+local args = {
+[1] = {
+["Force"] = 0,
+["Direction"] = Vector3.new(1, 1.5, 0)
+}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("SelfKnockback"):FireServer(unpack(args))
+wait()
+end
+end
+end)
+
+AbilitysT:NewToggle("Spam Quake", "quake nuke", function(state)
+if state then
+_G.quakenuke = true
+while _G.quakenuke == true do
+local args = {
+[1] = {
+["start"] = true
+}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer(unpack(args))
+local args = {
+[1] = {
+["finished"] = true
+}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer(unpack(args))
+wait()
+end
+else
+_G.quakenuke = false
+while _G.quakenuke == true do
+local args = {
+[1] = {
+["start"] = true
+}
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer(unpack(args))
+local args = {
+[1] = {
+["finished"] = true
+}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer(unpack(args))
+wait()
+end
+end
+end)
+
+AbilitysT:NewToggle("Spam Rhythm", "aoe explosion", function(state)
+if state then
+_G.aoeboom = true
+while _G.aoeboom == true do
+local args = {
+[1] = "AoeExplosion",
+[2] = 0
+}
+game:GetService("ReplicatedStorage").rhythmevent:FireServer(unpack(args))
+wait()
+end
+else
+_G.aoeboom = false
+while _G.aoeboom == true do
+local args = {
+[1] = "AoeExplosion",
+[2] = 0
+}
+game:GetService("ReplicatedStorage").rhythmevent:FireServer(unpack(args))
+wait()
+end
+end
+end)
+
+AbilitysT:NewToggle("Infinite Golden", "Godmode", function(state)
+if state then
+local args = {
+[1] = true,
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Goldify"):FireServer(unpack(args))
+else
+local args = {
+[1] = false,
+[2] = BrickColor.new(1017)
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Goldify"):FireServer(unpack(args))
+end
+end)
+
+AbilitysT:NewToggle("Infinite Reverse", "Godmode", function(state)
+if state then
+_G.reversed = true
+while _G.reversed == true do
+game:GetService("ReplicatedStorage").ReverseAbility:FireServer()
+wait(6)
+end
+else
+_G.reversed = false
+while _G.reversed == true do
+game:GetService("ReplicatedStorage").ReverseAbility:FireServer()
+wait(6)
+end
+end
+end)
+
+AbilitysT:NewToggle("Infinite Psycho float", "its a godmode you cant move", function(state)
+if state then
+_G.pisfling = true
+while _G.pisfling == true do
+local args = {
+[1] = {
+["flying"] = true
+}
+}
+game:GetService("ReplicatedStorage").Psychokinesis:InvokeServer(unpack(args))
+wait(1)
+end
+else
+_G.pisfling = false
+while _G.pisfling == true do
+local args = {
+[1] = {
+["flying"] = true
+}
+}
+game:GetService("ReplicatedStorage").Psychokinesis:InvokeServer(unpack(args))
+wait(1)
+end
+end
+end)
+
+AbilitysT:NewToggle("Infinite Phase", "you can hit ppl :D", function(state)
+if state then
+_G.fazi = true
+while _G.fazi == true do
+game:GetService("ReplicatedStorage"):WaitForChild("PhaseA"):FireServer()
+wait(5.5)
+end
+else
+_G.fazi = false
+while _G.fazi == true do
+game:GetService("ReplicatedStorage"):WaitForChild("PhaseA"):FireServer()
+wait(5.5)
+end
+end
+end)
+
+AbilitysT:NewToggle("Spam BanHammer", "They dont work at the same time", function(state)
+if state then
+_G.retroizi = true
+while _G.retroizi == true do
+local args = {
+    [1] = "Ban Hammer"
+}
+
+game:GetService("ReplicatedStorage").RetroAbility:FireServer(unpack(args))
+wait()
+end
+else
+_G.retroizi = false
+while _G.retroizi == true do
+local args = {
+    [1] = "Ban Hammer"
+}
+
+game:GetService("ReplicatedStorage").RetroAbility:FireServer(unpack(args))
+wait()
+end
+end
+end)
+
+AbilitysT:NewToggle("Spam RocketLauncher", "They dont work at the same time", function(state)
+if state then
+_G.retroizi = true
+while _G.retroizi == true do
+local args = {
+    [1] = "Rocket Launcher"
+}
+
+game:GetService("ReplicatedStorage").RetroAbility:FireServer(unpack(args))
+wait()
+end
+else
+_G.retroizi = false
+while _G.retroizi == true do
+local args = {
+    [1] = "Rocket Launcher"
+}
+
+game:GetService("ReplicatedStorage").RetroAbility:FireServer(unpack(args))
+wait()
+end
+end
+end)
+
+AbilitysT:NewToggle("Spam Bomb", "They dont work at the same time", function(state)
+if state then
+_G.retroizi = true
+while _G.retroizi == true do
+local args = {
+    [1] = "Bomb"
+}
+
+game:GetService("ReplicatedStorage").RetroAbility:FireServer(unpack(args))
+wait()
+end
+else
+_G.retroizi = false
+while _G.retroizi == true do
+local args = {
+    [1] = "Bomb"
+}
+
+game:GetService("ReplicatedStorage").RetroAbility:FireServer(unpack(args))
+wait()
+end
+end
+end)
+
+AbilitysT:NewToggle("Infinite Ghost", "invisible", function(state)
+if state then
+game:GetService("ReplicatedStorage").Ghostinvisibilityactivated:FireServer()
+else
+game:GetService("ReplicatedStorage").Ghostinvisibilitydeactivated:FireServer()
+end
+end)
+
+AbilitysT:NewToggle("Spam Error sound", "no one will suspecta", function(state)
+if state then
+_G.errado = true
+while _G.errado == true do
+game:GetService("ReplicatedStorage"):WaitForChild("ErrorDeath"):FireServer()
+wait()
+end
+else
+_G.errado = false
+while _G.errado == true do
+game:GetService("ReplicatedStorage"):WaitForChild("ErrorDeath"):FireServer()
+wait()
+end
+end
+end)
+
+AbilitysT:NewToggle("Spam Rojo", "it spams the ANIMATION", function(state)
+if state then
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+_G.azucovemeo = true
+while _G.azucovemeo == true do
+local args = {
+    [1] = "Charge"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer(unpack(args))
+wait()
+end
+else
+_G.azucovemeo = false
+while _G.azucovemeo == true do
+local args = {
+    [1] = "Charge"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer(unpack(args))
+wait()
+end
+wait(2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+end
+end)
+
+AbilitysB:NewButton("Aoe Explosion", "A single decent explosion", function()
+local args = {
+[1] = "AoeExplosion",
+[2] = 0
+}
+game:GetService("ReplicatedStorage").rhythmevent:FireServer(unpack(args))
+end)
+
+AbilitysB:NewButton("Super Psycho Throw", "hold someone and click here to throw them away", function()
+local args = {
+    [1] = {
+        ["throwbackAlpha"] = 9999999999999999999999999999
+    }
+}
+
+game:GetService("ReplicatedStorage").Psychokinesis:InvokeServer(unpack(args))
+end)
+
+AbilitysB:NewButton("Lure Water", "slap someone and click here to teleport away use ability and come back", function()
+char.HumanoidRootPart.CFrame = CFrame.new(20.9338531, -150.978561, -10.9107265, -0.999847591, -1.31020359e-08, 0.01745921, -1.32495597e-08, 1, -8.33395486e-09, -0.01745921, -8.56401083e-09, -0.999847591)
+wait(0.2)
+game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer()
+wait(0.2)
+char.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+end)
+
+AbilitysB:NewButton("Excavator Hide", "go into the ground but you dont move", function()
+game:GetService("ReplicatedStorage"):WaitForChild("Excavator"):InvokeServer()
+end)
+
+AbilitysB:NewButton("Admin Cloud [KS ONLY]", "spawns goku cloud", function()
+game:GetService("ReplicatedStorage").NimbusAbility:FireServer()
+end)
+
+AbilitysB:NewButton("Free Recall", "Dimenssion Drift", function()
+local args = {
+[1] = game:GetService("Players").LocalPlayer.Character.Recall
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Recall"):InvokeServer(unpack(args))
+end)
+
+Utility1:NewButton("Charge Reaper Phase 4", "it charges the reaper that marked you", function()
+for i = 1, 20 do
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
+end
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v.Name == "DeathMark" then
+game:GetService("ReplicatedStorage").ReaperGone:FireServer(game:GetService("Players").LocalPlayer.Character.DeathMark)
+game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
+end 
+end
+end)
+
+Utility1:NewButton("Charge Reaper Phase 3", "it charges the reaper that marked you", function()
+for i = 1, 10 do
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
+end
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v.Name == "DeathMark" then
+game:GetService("ReplicatedStorage").ReaperGone:FireServer(game:GetService("Players").LocalPlayer.Character.DeathMark)
+game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
+end 
+end
+end)
+
+Utility1:NewButton("Charge Reaper Phase 2", "it charges the reaper that marked you", function()
+for i = 1, 5 do
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
+end
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v.Name == "DeathMark" then
+game:GetService("ReplicatedStorage").ReaperGone:FireServer(game:GetService("Players").LocalPlayer.Character.DeathMark)
+game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
+end 
+end
+end)
+
+Utility1:NewButton("Charge Reaper Phase 1", "it charges the reaper that marked you", function()
+for i = 1, 1 do
+game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(x,false)
+end
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v.Name == "DeathMark" then
+game:GetService("ReplicatedStorage").ReaperGone:FireServer(game:GetService("Players").LocalPlayer.Character.DeathMark)
+game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
+end 
+end
+end)
+
+myPart.Transparency = 0.5
+myPart.Anchored = true
+myPart.Size = Vector3.new(9,3,9)
+myPart.Parent = game.Workspace
+myPart.CFrame = CFrame.new(21.0028305, -154.978516, -10.9418917, -0.998630345, 0.00382314296, 0.0521808378, 2.93385938e-06, 0.997330785, -0.0730154663, -0.0523207076, -0.0729153082, -0.995964825)
+myPart.Rotation = Vector3.new(0,0,0)
